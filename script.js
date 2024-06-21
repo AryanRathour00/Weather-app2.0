@@ -22,7 +22,13 @@ function checkWeather(city) {
   };
   xhr.onload = function () {
     let weather_data = JSON.parse(this.responseText);
-    console.log(this.responseText)
+    
+    if (weather_data.cod === "404") {
+      location_not_found.style.display = "flex";
+      weather_body.style.display = "none";
+      return;
+    }
+
     location_not_found.style.display = "none";
     weather_body.style.display = "flex";
     temperature.innerHTML = `${Math.floor(weather_data.main.temp - 273.15)}°C`;
@@ -32,19 +38,19 @@ function checkWeather(city) {
 
     switch (weather_data.weather[0].main) {
       case "Clouds":
-        weather_img.src = "assets/clear.png";
+        weather_img.src = "./assets/clear.png";
         break;
       case "Clear":
-        weather_img.src = "assets/clear.png";
+        weather_img.src = "./assets/clear.png";
         break;
       case "Rain":
-        weather_img.src = "assets/rain.png";
+        weather_img.src = "./assets/rain.png";
         break;
       case "Mist":
-        weather_img.src = "assets/mist.png";
+        weather_img.src = "./assets/mist.png";
         break;
       case "Snow":
-        weather_img.src = "assets/snow.png";
+        weather_img.src = "./assets/snow.png";
         break;
     }
   };
